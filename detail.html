@@ -1,25 +1,29 @@
-<html>
- <title>Messi: Career Achievements</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messi Fan Page</title>
     <style>
         body {
-            background-color: #ffdd59; /* Yellow background */
-            color: #2a2a72; /* Dark blue text */
+            background-color: #2a2a72;
+            color: #ffffff;
             font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
             padding: 0;
-            text-align: center;
         }
-        .item-image {
-            max-width: 300px;
-            margin: 20px auto;
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
-        .details {
-            margin: 20px;
+        li {
+            margin: 10px 0;
         }
         a {
-            color: #2a2a72; /* Match text color */
+            color: #ffdd59;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
         }
         a:hover {
             text-decoration: underline;
@@ -27,17 +31,28 @@
     </style>
 </head>
 <body>
-    <h1>Lionel Messi</h1>
-    <img src="https://via.placeholder.com/300" alt="Messi Image" class="item-image">
+    <h1>Welcome to Messi's Fan Page</h1>
+    <ul id="item-list"></ul>
 
-    <div class="details">
-        <p><strong>Full Name:</strong> Lionel Andrés Messi</p>
-        <p><strong>Nationality:</strong> Argentine</p>
-        <p><strong>Teams:</strong> FC Barcelona, PSG, Inter Miami CF</p>
-        <p><strong>Career Goals:</strong> Over 800</p>
-        <p><strong>Ballon d'Or Wins:</strong> 7</p>
-    </div>
+    <script>
+        const apiUrl = "https://midlandclassapi.example.com"; // Replace with your actual API URL
+        const tableName = "your_unique_table_name"; // Replace with your unique table name
+        const listElement = document.getElementById('item-list');
 
-    <a href="index.html">Go Back to Index</a>
+        // Fetch list of items from the API
+        fetch(`${apiUrl}/items?table=${tableName}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="detail.html?id=${item.id}">${item.name}</a>`;
+                    listElement.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+                listElement.innerHTML = '<p>Error loading items.</p>';
+            });
+    </script>
 </body>
 </html>
